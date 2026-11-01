@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_login">
+
+    <fragment
+        android:id="@+id/navigation_event_list"
+        android:name="com.zybooks.eventtracker.EventListFragment"
+        android:label="@string/title_event_list"
+        tools:layout="@layout/fragment_event_list">
+        <action
+            android:id="@+id/show_item_detail"
+            app:destination="@id/navigation_event_edit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_event_edit"
+        android:name="com.zybooks.eventtracker.EventEditFragment"
+        android:label="@string/title_event_edit"
+        tools:layout="@layout/fragment_event_edit">
+        <argument
+            android:name="event_id"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.zybooks.eventtracker.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" />
+
+</navigation>

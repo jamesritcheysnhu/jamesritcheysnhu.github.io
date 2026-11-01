@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TextMessageFragment">
+
+    <!-- title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Title"
+        android:text="@string/title_text_message" />
+
+    <!-- send SMS test button -->
+    <Button
+        android:id="@+id/send_test_button"
+        style="@style/PlainButton"
+        android:layout_marginTop="20dp"
+        android:text="@string/settings_description_allow_sms_on" />
+
+</LinearLayout>

@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">EventTracker</string>
+    <string name="title_event_list">Events</string>
+    <string name="title_event_edit">Event</string>
+    <string name="title_text_message">Send notifications</string>
+    <string name="button_create_account">Create Account</string>
+    <string name="button_create_event">Create Event</string>
+    <string name="button_save_event">Save Event</string>
+    <string name="button_delete_event">Delete Event</string>
+    <string name="button_show_calendar">Calendar View</string>
+    <string name="button_login">Login</string>
+    <string name="title_login">Login</string>
+    <string name="title_username">Username</string>
+    <string name="title_password">Password</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_notification_category">Notifications</string>
+    <string name="settings_title_allow_sms">SMS notifications</string>
+    <string name="settings_description_allow_sms_on">Allow SMS notifications</string>
+    <string name="settings_description_allow_sms_off">Do not allow SMS notifications</string>
+    <string name="event_title">Title</string>
+    <string name="event_location">Location</string>
+    <string name="event_date">Date</string>
+    <string name="event_time">Time</string>
+    <string name="event_description">Description</string>
+    <string name="event_delete">Delete</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="toast_username_exists">Username already exists</string>
+    <string name="toast_invalid_login">Invalid username or password</string>
+    <string name="notification_event_title">Time for:</string>
+    <string name="toast_empty_title">Title cannot be blank</string>
+</resources>

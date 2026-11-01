@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--TODO: buttons should be center aligned horizontally -->
+
+    <!-- title -->
+    <TextView
+        android:id="@+id/login_title"
+        style="@style/Title"
+        android:text="@string/title_login" />
+
+    <!-- username -->
+    <TextView
+        android:id="@+id/label_username"
+        style="@style/Label"
+        android:text="@string/title_username" />
+
+    <EditText
+        android:id="@+id/input_username"
+        style="@style/TextEntry" />
+
+    <!-- password -->
+    <TextView
+        android:id="@+id/label_password"
+        style="@style/Label"
+        android:text="@string/title_password" />
+
+    <EditText
+        android:id="@+id/input_password"
+        style="@style/TextEntry"
+        android:inputType="textPassword" />
+
+    <!-- login button -->
+    <Button
+        android:id="@+id/login_button"
+        style="@style/PlainButton"
+        android:layout_marginTop="20dp"
+        android:text="@string/button_login" />
+
+    <!-- create account button -->
+    <Button
+        android:id="@+id/create_account_button"
+        style="@style/PlainButton"
+        android:layout_marginTop="20dp"
+        android:text="@string/button_create_account" />
+
+</LinearLayout>

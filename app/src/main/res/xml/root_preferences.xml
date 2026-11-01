@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/title_notification_category">
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/settings_description_allow_sms_off"
+            app:summaryOn="@string/settings_description_allow_sms_off"
+            app:title="@string/settings_title_allow_sms" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

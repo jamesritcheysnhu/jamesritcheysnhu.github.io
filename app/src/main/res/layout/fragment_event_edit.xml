@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EventEditFragment">
+
+    <!-- title -->
+    <TextView
+        android:id="@+id/edit_event_title"
+        style="@style/Title"
+        android:text="@string/title_event_edit" />
+
+    <!-- data -->
+
+    <!-- event title -->
+    <TextView
+        android:id="@+id/label_event_title"
+        style="@style/Label"
+        android:text="@string/event_title" />
+
+    <EditText
+        android:id="@+id/input_event_title"
+        style="@style/TextEntry" />
+
+    <!-- event location -->
+    <TextView
+        android:id="@+id/label_event_location"
+        style="@style/Label"
+        android:text="@string/event_location" />
+
+    <EditText
+        android:id="@+id/input_event_location"
+        style="@style/TextEntry" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:columnCount="2">
+
+        <!-- event date -->
+        <TextView
+            android:layout_column="0"
+            android:id="@+id/label_event_date"
+            style="@style/Label"
+            android:text="@string/event_date" />
+
+        <TextView
+            android:layout_column="1"
+            android:id="@+id/label_event_time"
+            style="@style/Label"
+            android:text="@string/event_time" />
+
+        <DatePicker
+            android:id="@+id/input_event_date"
+            style="@style/DateTimePicker"
+
+            android:layout_height="144dp"
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+
+        <TimePicker
+            android:id="@+id/input_event_time"
+            style="@style/DateTimePicker"
+
+            android:layout_height="144dp"
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal"
+            android:timePickerMode="spinner" />
+    </GridLayout>
+
+
+    <!-- event description -->
+    <TextView
+        android:id="@+id/label_event_description"
+        style="@style/Label"
+        android:text="@string/event_description" />
+
+    <EditText
+        android:id="@+id/input_event_description"
+        style="@style/TextEntry" />
+
+    <!-- save event button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/button_save_event"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/check" />
+
+</LinearLayout>

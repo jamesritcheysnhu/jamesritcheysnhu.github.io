@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:useDefaultMargins="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:columnCount="3">
+
+    <!-- delete icon -->
+    <ImageView
+        android:layout_column="0"
+        android:layout_gravity="fill_horizontal"
+        android:id="@+id/delete_event_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/button_delete_event"
+        android:src="@drawable/baseline_delete_forever_24"
+        android:layout_alignParentEnd="true" />
+
+    <!-- data: event title -->
+    <TextView
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/event_title"
+        android:textSize="24sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        tools:text="@string/event_title"
+        android:text="Title 1" />
+
+    <!-- data: event date and time -->
+    <TextView
+        android:layout_column="2"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_date"
+        android:textSize="18sp"
+        android:layout_margin="8dp"
+        tools:text="@string/event_date"
+        android:text="Date 1" />
+
+</GridLayout>
