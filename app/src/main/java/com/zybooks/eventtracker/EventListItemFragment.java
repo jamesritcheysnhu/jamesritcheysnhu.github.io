@@ -7,20 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.zybooks.eventtracker.R;
-
-
-
-
-
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link com.zybooks.eventtracker.EventListItemFragment#newInstance} factory method to

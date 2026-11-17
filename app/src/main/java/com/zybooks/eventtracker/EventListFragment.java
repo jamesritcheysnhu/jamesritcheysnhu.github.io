@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.zybooks.eventtracker.model.Event;
+import com.zybooks.eventtracker.clientmodel.Event;
 import com.zybooks.eventtracker.viewmodel.EventListViewModel;
 import com.zybooks.eventtracker.viewmodel.EventViewModel;
 import java.util.List;

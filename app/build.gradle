@@ -1,5 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    id 'androidx.room'
+}
+
+room {
+    schemaDirectory "$projectDir/schemas"
 }
 
 android {
@@ -29,7 +34,6 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
@@ -46,4 +50,6 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation libs.recyclerview
     implementation libs.androidx.work.runtime
+    implementation libs.moshi
+    implementation libs.retrofit
 }

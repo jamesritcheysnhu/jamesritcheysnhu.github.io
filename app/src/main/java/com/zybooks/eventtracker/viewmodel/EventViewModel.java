@@ -5,8 +5,9 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.zybooks.eventtracker.model.Event;
-import com.zybooks.eventtracker.repo.EventRepository;
+import com.zybooks.eventtracker.clientmodel.Event;
+import com.zybooks.eventtracker.dbservice.ClientRepository;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,11 +15,11 @@ import java.util.Locale;
 
 // TODO: datetime helper functions should be factored out into their own class
 public class EventViewModel extends AndroidViewModel {
-    private final EventRepository mEventRepo;
+    private final ClientRepository mEventRepo;
 
     public EventViewModel(@NonNull Application application) {
         super(application);
-        mEventRepo = EventRepository.getInstance(application.getApplicationContext());
+        mEventRepo = ClientRepository.getInstance(application.getApplicationContext());
     }
 
     public Event getEvent(int id) {

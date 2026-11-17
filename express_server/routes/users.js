@@ -10,8 +10,8 @@ const dbConfig = require('../config/database');
 router.post('/register', async (req, res, next) => {
 	try {
 		let newUser = new User({
-			name: req.body.name,
-			email: req.body.email,
+			//name: req.body.name,
+			//email: req.body.email,
 			username: req.body.username,
 			password: req.body.password
 		});
@@ -38,6 +38,7 @@ router.post('/register', async (req, res, next) => {
 // /users/authenticate - NOTE: sessions must be disabled if using token
 // NOTE: client must consume the id_token,
 //       whereas the client sends the access_token to the server
+// TODO: if using persistent sessions, the refresh token will also need to be sent and stored
 router.post('/authenticate', async (req, res, next) => {
 	const username = req.body.username;
 	const password = req.body.password;
@@ -73,7 +74,7 @@ router.post('/authenticate', async (req, res, next) => {
 			expiresIn: 604800
 		});
 
-		// return user data for client
+		// return user data for client: token is access token, user contains equivalent info to an id token, and there is no refresh token
 		return res.json({
 			success: true,
 			token: 'Bearer ' + token,

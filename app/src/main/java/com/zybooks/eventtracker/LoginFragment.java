@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.zybooks.eventtracker.model.User;
+import com.zybooks.eventtracker.clientmodel.User;
 import com.zybooks.eventtracker.viewmodel.UserViewModel;
 
 public class LoginFragment extends Fragment {

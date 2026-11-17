@@ -4,17 +4,18 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.zybooks.eventtracker.model.User;
-import com.zybooks.eventtracker.repo.EventRepository;
+import com.zybooks.eventtracker.clientmodel.User;
+import com.zybooks.eventtracker.dbservice.ClientRepository;
+
 import java.util.List;
 
 public class UserViewModel  extends AndroidViewModel {
-    private final EventRepository mEventRepo;
+    private final ClientRepository mEventRepo;
     private List<User> mUsers;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        mEventRepo = EventRepository.getInstance(application.getApplicationContext());
+        mEventRepo = ClientRepository.getInstance(application.getApplicationContext());
         mUsers = mEventRepo.getUsers();
     }
 

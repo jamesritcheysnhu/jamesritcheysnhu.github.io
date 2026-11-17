@@ -1,4 +1,4 @@
-package com.zybooks.eventtracker;
+package com.zybooks.eventtracker.backgroundservice;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.zybooks.eventtracker.R;
 
 public class EventNotificationWorker extends Worker {
 
