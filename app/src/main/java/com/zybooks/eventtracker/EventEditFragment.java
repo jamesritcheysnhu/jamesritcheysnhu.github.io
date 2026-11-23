@@ -16,7 +16,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.zybooks.eventtracker.backgroundservice.EventNotificationWorker;
-import com.zybooks.eventtracker.clientmodel.Event;
+import com.zybooks.eventtracker.dbmodel.Event;
 import com.zybooks.eventtracker.viewmodel.EventViewModel;
 import java.util.concurrent.TimeUnit;
 

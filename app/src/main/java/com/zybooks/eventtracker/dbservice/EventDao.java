@@ -1,5 +1,5 @@
 package com.zybooks.eventtracker.dbservice;
-import com.zybooks.eventtracker.clientmodel.Event;
+import com.zybooks.eventtracker.dbmodel.Event;
 import androidx.room.*;
 import java.util.List;
 

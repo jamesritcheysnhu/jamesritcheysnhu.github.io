@@ -1,5 +1,6 @@
 package com.zybooks.eventtracker;
 
+//import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -41,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
         // request user permission for event notifications
         requestPermissions();
+
+        // TODO: if making the EncryptedDataStore application-level accessible, start service here
+        // start EncryptedDataStore service
+        //Intent serviceIntent = new Intent(this, EncryptedDataStore.class);
+
+        //startService(serviceIntent);
     }
 
     @Override
@@ -51,14 +61,34 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
 
+    /**
+     * requestPermissions: request the permissions necessary to perform:
+     * - timed event notifications
+     * - network access
+     * - determine network status
+     */
     private void requestPermissions() {
-        // request the permissions necessary to perform the timed event notifications
-        String permission = android.Manifest.permission.POST_NOTIFICATIONS;
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), permission)
-                != PackageManager.PERMISSION_GRANTED)
-        {
+        String[] permissions = {
+            android.Manifest.permission.POST_NOTIFICATIONS,
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.ACCESS_NETWORK_STATE
+        };
+
+        List<String> permissionRequests = new ArrayList<>();
+
+        // determine permission status of each required permission, and add it to a list if denied
+        for (String permission : permissions) {
+            int permissionGranted =
+                    ContextCompat.checkSelfPermission(getApplicationContext(), permission);
+            if (permissionGranted != PackageManager.PERMISSION_GRANTED) {
+                permissionRequests.add(permission);
+            }
+        }
+
+        // request permission for each denied permission
+        if (!permissionRequests.isEmpty()) {
             ActivityCompat.requestPermissions(
-                    this, new String[] { permission }, 1001);
+                    this, permissionRequests.toArray(new String[0]), 1001);
         }
     }
 }

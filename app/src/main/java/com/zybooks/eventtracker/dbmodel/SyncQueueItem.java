@@ -1,4 +1,4 @@
-package com.zybooks.eventtracker.clientmodel;
+package com.zybooks.eventtracker.dbmodel;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

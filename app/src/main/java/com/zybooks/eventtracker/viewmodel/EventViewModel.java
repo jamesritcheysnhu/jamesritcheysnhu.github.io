@@ -5,7 +5,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.zybooks.eventtracker.clientmodel.Event;
+import com.zybooks.eventtracker.dbmodel.Event;
 import com.zybooks.eventtracker.dbservice.ClientRepository;
 
 import java.text.SimpleDateFormat;

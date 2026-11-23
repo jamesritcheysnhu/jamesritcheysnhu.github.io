@@ -3,7 +3,7 @@ package com.zybooks.eventtracker.viewmodel;
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.zybooks.eventtracker.clientmodel.Event;
+import com.zybooks.eventtracker.dbmodel.Event;
 import com.zybooks.eventtracker.dbservice.ClientRepository;
 import java.util.List;
 

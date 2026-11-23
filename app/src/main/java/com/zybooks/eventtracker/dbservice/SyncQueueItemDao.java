@@ -2,7 +2,7 @@ package com.zybooks.eventtracker.dbservice;
 
 import androidx.room.*;
 import java.util.List;
-import com.zybooks.eventtracker.clientmodel.SyncQueueItem;
+import com.zybooks.eventtracker.dbmodel.SyncQueueItem;
 
 // SyncQueueItemDao: interface for interacting with offline request sync queue
 @Dao

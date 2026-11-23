@@ -34,22 +34,35 @@ android {
 }
 
 dependencies {
+    implementation libs.androidx.core.ktx
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.preference
-    implementation libs.room.common.jvm
-    implementation libs.room.runtime.android
-    implementation libs.work.runtime
-    annotationProcessor libs.androidx.room.compiler
-    implementation libs.navigation.fragment
-    implementation libs.navigation.ui
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+
     implementation libs.recyclerview
     implementation libs.androidx.work.runtime
+
+    implementation libs.room.common.jvm
+    implementation libs.room.runtime.android
+    annotationProcessor libs.androidx.room.compiler
+
     implementation libs.moshi
+    implementation libs.converter.moshi
     implementation libs.retrofit
+
+    implementation libs.androidx.datastore.core
+    implementation libs.androidx.datastore.preferences
+    implementation libs.androidx.datastore.rxjava3
+    implementation libs.androidx.datastore.preferences.rxjava3
+    implementation libs.androidx.datastore.tink
+    implementation libs.google.tink.android
 }

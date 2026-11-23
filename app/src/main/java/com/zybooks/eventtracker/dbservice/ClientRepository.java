@@ -1,8 +1,8 @@
 package com.zybooks.eventtracker.dbservice;
 
-import com.zybooks.eventtracker.clientmodel.Event;
-import com.zybooks.eventtracker.clientmodel.User;
-import com.zybooks.eventtracker.clientmodel.SyncQueueItem;
+import com.zybooks.eventtracker.dbmodel.Event;
+import com.zybooks.eventtracker.dbmodel.User;
+import com.zybooks.eventtracker.dbmodel.SyncQueueItem;
 import android.content.Context;
 import androidx.room.Room;
 import java.util.List;

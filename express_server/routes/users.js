@@ -6,22 +6,45 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const dbConfig = require('../config/database');
 
+// TODO: if using 2FA, the registration token should not be the same because full permissions will not be given,
+		//       so will need to be removed here
 // /users/register
 router.post('/register', async (req, res, next) => {
 	try {
 		let newUser = new User({
-			//name: req.body.name,
-			//email: req.body.email,
 			username: req.body.username,
 			password: req.body.password
 		});
 
+		// TODO: get user by username; if exists, return error
 		const savedUser = await User.addUser(newUser);
 
+		// do not reference the password beyond here
+		savedUser.password = '';
+
+		/** generate token w/ 1 week expiration
+		 * use user.toJSON() or user.toObject() if user is a Mongoose document
+		 * passing a raw Mongoose document directly to jwt.sign() can sometimes append internal Mongoose metadata,
+		 * leading to massive tokens or errors
+		 */
+		// TODO: though cookies have their own pitfalls, localStorage is susceptible to XSS via raw forms or compromised
+		//       3rd party CDN JS.
+		//       see https://stackoverflow.com/questions/44133536/is-it-safe-to-store-a-jwt-in-localstorage-with-reactjs
+		//       for mitigations for either
+		const token = jwt.sign(savedUser.toJSON ? savedUser.toJSON() : savedUser, dbConfig.secret, {
+			expiresIn: 604800
+		});
+
+		// return user data for client: token is access token, user contains equivalent info to an id token, and there
+		// is no refresh token
 		return res.json({
 			success: true,
 			msg: 'user registered',
-			user: savedUser
+			token: 'Bearer ' + token,
+			user: {
+				id: savedUser._id,
+				username: savedUser.username
+			}
 		});
 	}
 	catch (err) {
@@ -64,12 +87,18 @@ router.post('/authenticate', async (req, res, next) => {
 			});
 		}
 
+		// do not reference the password beyond here
+		user.password = '';
+
 		/** generate token w/ 1 week expiration
 		 * use user.toJSON() or user.toObject() if user is a Mongoose document
-		 * passing a raw Mongoose document directly to jwt.sign() can sometimes append internal Mongoose metadata, leading to massive tokens or errors
+		 * passing a raw Mongoose document directly to jwt.sign() can sometimes append internal Mongoose metadata,
+		 * leading to massive tokens or errors
 		 */
-		// TODO: though cookies have their own pitfalls, localStorage is susceptible to XSS via raw forms or compromised 3rd party CDN JS.
-		//       see https://stackoverflow.com/questions/44133536/is-it-safe-to-store-a-jwt-in-localstorage-with-reactjs for mitigations for either
+		// TODO: though cookies have their own pitfalls, localStorage is susceptible to XSS via raw forms or compromised
+		//       3rd party CDN JS.
+		//       see https://stackoverflow.com/questions/44133536/is-it-safe-to-store-a-jwt-in-localstorage-with-reactjs
+		//       for mitigations for either
 		const token = jwt.sign(user.toJSON ? user.toJSON() : user, dbConfig.secret, {
 			expiresIn: 604800
 		});
@@ -77,6 +106,7 @@ router.post('/authenticate', async (req, res, next) => {
 		// return user data for client: token is access token, user contains equivalent info to an id token, and there is no refresh token
 		return res.json({
 			success: true,
+			msg: 'user authenticated',
 			token: 'Bearer ' + token,
 			user: {
 				id: user._id,
