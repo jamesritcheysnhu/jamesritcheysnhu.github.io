@@ -17,6 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // TODO: SharedPreferences should not be used, use Jetpack DataStore and RxJava3
+
 package com.zybooks.eventtracker.backgroundservice;
 
 //import android.app.Service;
@@ -39,7 +40,11 @@ import java.util.Objects;
 
 import javax.crypto.BadPaddingException;
 
-/** A custom application that initializes the Tink runtime at application startup. */
+/**
+ * EncryptedDataStore:
+ * A custom application that initializes the Tink runtime at application startup.
+ * stores the encryption keys required for encrypting/decrypting the input (e.g. a JWT)
+ * */
 //public class EncryptedDataStore extends Service {
 public class EncryptedDataStore {
   private final SharedPreferences mSharedPreferences;

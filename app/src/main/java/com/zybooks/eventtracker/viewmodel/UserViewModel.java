@@ -4,38 +4,116 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
-import com.zybooks.eventtracker.R;
 import com.zybooks.eventtracker.apiservice.RemoteRepository;
 //import com.zybooks.eventtracker.dbmodel.User; // database layer
+import com.zybooks.eventtracker.apiservice.ResponseCallback;
+import com.zybooks.eventtracker.backgroundservice.MessageMap;
 import com.zybooks.eventtracker.clientmodel.User; // domain layer
 
+import java.util.Map;
 import java.util.regex.Pattern;
-
-// TODO: viewmodel scope creep: the findUser, findUserByUsername, and other controller-like
-//       methods should be refactored or removed - the functions on the viewmodel should adhere more
-//       to the view's functions and data, e.g. username field, pw field, submit button.
-//       Viewmodels should represent UI elements, data required by view, and client-side validation.
 
 // TODO: repo will be temporarily unused for an online-only experience.
 //       future iterations will use repo as local offline mode storage.
 
-// TODO: a viewmodel's data includes those errors which may be outputted to the toast.
-//       set the viewmodel's error output attribute
 public class UserViewModel extends AndroidViewModel {
-    private final RemoteRepository mRemoteRepo;
+    private static ResponseCallback sResponseCallback;
 
-    private String mUsername;  // user's string identifier for visualization, 2nd to remoteId
-    private String mPassword;  // plaintext password to be transmitted (hopefully via HTTPS POST)
+    // mRemoteRepo: the remote API access point
+    private static RemoteRepository mRemoteRepo;
 
-    private String mNotification;  // TODO: user data status
+    // sMsgs: possible messages for the view
+    private static Messages sMsgs;
 
-    public UserViewModel (@NonNull Application application, RemoteRepository remoteRepo) {
-        super(application);
+    //mMsgData: error/status message sent to the view
+    private static MutableLiveData<String> sMsgData;
+
+    // mUserData: contains the user domain LiveData object
+    private static MutableLiveData<User> sUserData;
+
+    public UserViewModel (@NonNull Application app, @NonNull RemoteRepository remoteRepo) {
+        super(app);
+
         mRemoteRepo = remoteRepo;
-        mUsername = "";
-        mPassword = "";
-        mNotification = "";
+
+        if (sMsgs == null) {
+            sMsgs = new Messages();
+        }
+
+        if (sUserData == null) {
+            sUserData = new MutableLiveData<>();
+        }
+
+        if (sMsgData == null) {
+            sMsgData = new MutableLiveData<>();
+        }
+
+        if (sResponseCallback == null) {
+            sResponseCallback = new UserResponseCallback(sUserData, sMsgData);
+        }
+    }
+
+    public MutableLiveData<User> register(@NonNull User user) {
+        // local input validation - if fails, output error and return empty user
+        if (!isUsername(user.username) || !isPassword(user.password)) {
+            sUserData.setValue(User.createDefault());
+            sMsgData.setValue(sMsgs.get("toast_invalid_auth"));
+
+            return sUserData;
+        }
+
+         // attempt API call:
+         // - if API call succeeds, performs callback that updates LiveData output
+         // - if fails, set general error and set empty User
+        try {
+            mRemoteRepo.register(user, sResponseCallback);
+        }
+        catch (Exception ex) {
+            if (!sUserData.isInitialized()) {
+                sUserData.setValue(User.createDefault());
+            }
+
+            if (!sMsgData.isInitialized()) {
+                sMsgData.setValue(sMsgs.get("toast_unknown_error"));
+            }
+        }
+
+        return sUserData;
+    }
+
+    public MutableLiveData<User> login(@NonNull User user) {
+        // local input validation - if fails, output error and return empty user
+        if (!isUsername(user.username) || !isPassword(user.password)) {
+            sUserData.setValue(User.createDefault());
+            sMsgData.setValue(sMsgs.get("toast_invalid_auth"));
+
+            return sUserData;
+        }
+
+        // attempt API call:
+        // - if API call succeeds, performs callback that updates LiveData output
+        // - if fails, set general error and set empty User
+        try {
+            // API repo register call creates a user if possible and returns
+            mRemoteRepo.login(user, sResponseCallback);
+        }
+        catch (Exception ex) {
+            if (!sUserData.isInitialized()) {
+                sUserData.setValue(User.createDefault());
+            }
+
+            if (!sMsgData.isInitialized()) {
+                sMsgData.setValue(sMsgs.get("toast_unknown_error"));
+            }
+        }
+
+        return sUserData;
+    }
+
+    public MutableLiveData<String> message () {
+        return sMsgData;
     }
 
     /**
@@ -61,51 +139,52 @@ public class UserViewModel extends AndroidViewModel {
      * - doesn't contain any white space
      */
     private boolean isPassword (String password) {
-        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=()-])(?=\\S+$).{8,20}";;
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=()-])(?=\\S+$).{8,20}";
 
         return Pattern.matches(pattern, password);
     }
 
-    public User register(@NonNull User newUser) {
-        if (!isUsername(newUser.username) || !isPassword(newUser.password)) {
-            return null;
+    // UserResponseCallback: updates LiveData (preferably upon API response)
+    private static class UserResponseCallback implements ResponseCallback {
+        private static MutableLiveData<User> sUserData;
+        private static MutableLiveData<String> sMsgData;
+
+        public UserResponseCallback (
+                @NonNull MutableLiveData<User> userData, @NonNull MutableLiveData<String> msgData)
+        {
+            if (sUserData == null) {
+                sUserData = userData;
+            }
+
+            if (sMsgData == null) {
+                sMsgData = msgData;
+            }
         }
 
-        User user = null;
-
-        try {
-            // API repo register call creates a user if possible and returns or else returns null
-            user = mRemoteRepo.register(newUser);
-        }
-        catch (Exception ex) {
-            return null;
+        public void onSuccess(@NonNull User user, @NonNull String message) {
+            sUserData.setValue(user);
+            sMsgData.setValue(message);
         }
 
-        if (user != null) {
-            mUsername = user.username;
+        public void onError(@NonNull User user, @NonNull String message) {
+            sUserData.setValue(user);
+            sMsgData.setValue(message);
         }
-
-        return user;
     }
 
-    public User login (User authenticatingUser) {
-        if (!isUsername(authenticatingUser.username) || !isPassword(authenticatingUser.password)) {
-            return null;
+    // Messages: stores a map of name keys and non-UI string text values
+    private static class Messages implements MessageMap {
+        private final Map<String, String> mMessages;
+
+        public Messages() {
+            this.mMessages = Map.of(
+                    "toast_invalid_auth", "Invalid username or password",
+                    "toast_unknown_error", "Unknown error"
+            );
         }
 
-        User user = null;
-
-        try {
-            // API repo register call creates a user if possible and returns or else returns null
-            user = mRemoteRepo.login(authenticatingUser);
+        public String get(String key) {
+            return mMessages.get(key);
         }
-        catch (Exception ex) {
-            return null;
-        }
-
-        if (user != null) {
-            mUsername = user.username;
-        }
-        return user;
     }
 }

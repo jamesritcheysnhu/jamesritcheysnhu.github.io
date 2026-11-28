@@ -17,15 +17,48 @@ import androidx.annotation.NonNull;
 //              perform JSON sending action
 
 // TODO: local id should not yet exist and so will always be null until there is a local-only db
-// TODO: remote id is never assigned to the domain model
+
+// TODO: password must only ever be set via Viewmodel string input. Once used, it must be null.
+//       the viewmodel validates the string BEFORE creating the user.
+//       if the repo sends a User, upon read, it should clear the password automatically.
 // User: the domain model user accessed by the rest of the application
 public class User {
-    public int id; // local id
-    public String remoteId; // remote (primary) id
+    public int id;  // local id
+    public String remoteId;  // remote (primary) id
 
     @NonNull
-    public String username;
+    public String username;  // the user's username
 
     @NonNull
-    public String password;
+    public String password;  // the user's password
+
+    private User (int id, String remoteId, @NonNull String username) {
+        this.id = id;
+        this.remoteId = remoteId;
+        this.username = username;
+        this.password = "";
+    }
+
+    private User () {
+        this(0, "", "");
+    }
+
+    // create: returns a (mostly) complete user - note that the password is empty
+    public static User create (int id, String remoteId, String username) {
+        return new User(id, remoteId, username);
+    }
+
+    // createPartialUser: returns a partial user sourced locally and lacking in sensitive info
+    public static User createPartial (@NonNull String username) {
+        User newUser =  createDefault();
+
+        newUser.username = username;
+
+        return newUser;
+    }
+
+    // createDefault: returns an empty user
+    public static User createDefault () {
+        return new User();
+    }
 }

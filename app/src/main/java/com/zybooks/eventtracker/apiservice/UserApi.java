@@ -8,12 +8,12 @@ import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Body;
 
-// TODO: the data models should be called AuthenticateRequest, RegisterRequest, and UserResponse
-//       each model contains the matching JSON user data and token
 public interface UserApi {
-    @POST("users/authenticate")
+    //@POST("users/authenticate")
+    @POST("authenticate")
     Call<UserResponse> authenticate(@Body AuthenticateRequest request);
 
-    @POST("users/register")
+    //@POST("users/register")
+    @POST("register")
     Call<UserResponse> register(@Body RegisterRequest request);
 }

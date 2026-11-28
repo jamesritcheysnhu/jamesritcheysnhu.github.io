@@ -5,9 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-// TODO: remote ids store the (consistent) server db ids.
-//       if network is available, store it. Otherwise it remains null.
-
 // TODO: for offline use, if a user has never authenticated with the server, there should be a
 //       local-only 'guest' account
 

@@ -9,13 +9,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.zybooks.eventtracker.apiservice.RemoteRepository;
 
 public class UserViewModelFactory implements ViewModelProvider.Factory {
-    private final Application mApplication;
+    private final Application mApp;
     private final RemoteRepository mRemoteRepo;
 
-    public UserViewModelFactory(
-            @NonNull Application application, @NonNull RemoteRepository remoteRepo)
+    public UserViewModelFactory(@NonNull Application app, @NonNull RemoteRepository remoteRepo)
     {
-        mApplication = application;
+        mApp = app;
         mRemoteRepo = remoteRepo;
     }
 
@@ -23,7 +22,7 @@ public class UserViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(UserViewModel.class)) {
-            return (T)new UserViewModel(mApplication, mRemoteRepo);
+            return (T)new UserViewModel(mApp, mRemoteRepo);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

@@ -25,9 +25,11 @@
     <string name="event_delete">Delete</string>
     <string name="title_activity_settings">Settings</string>
     <string name="toast_username_exists">Username already exists</string>
-    <string name="toast_invalid_login">Invalid username or password</string>
+    <string name="toast_invalid_auth">Invalid username or password</string>
     <string name="toast_invalid_user">User could not be accessed</string>
     <string name="notification_event_title">Time for:</string>
-    <string name="toast_empty_title">Title cannot be blank</string>
+
     <string name="pref_file_name">event_tracker_pref</string>
+
+    <string name="toast_empty_title">Title cannot be blank</string>
 </resources>

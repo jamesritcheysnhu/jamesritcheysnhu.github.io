@@ -1,20 +1,19 @@
 package com.zybooks.eventtracker.networkmodel;
 
 // UserResponse: the server's API response token as a readonly string and associated user data
+
+/* JSON output:
+"success": boolean,
+    "msg": string,
+    "token": string,
+    "user": {
+        "id": string,
+        "username": string
+    }
+ */
 public class UserResponse {
-    private final String mToken;  // JSON Web Token
-    private final User mUser;  // the remotely stored user data
-
-    public UserResponse (String token, User user) {
-        mToken = token;
-        mUser = user;
-    }
-
-    public String token () {
-        return mToken;
-    }
-
-    public User user () {
-        return mUser;
-    }
+    public boolean success;  // responded successfully
+    public String msg;  // contains notices and errors
+    public String token;  // JSON Web Token
+    public User user;  // the remotely stored user data
 }
